@@ -1,0 +1,1 @@
+nxn grid of 1s and zeros. Identify the groups of 1s that are adjacent to each other. Adjacent 1s do not include diagonals.

@@ -1,0 +1,1 @@
+nxn grid of 1s and 0s. Identify the number of adjacent spaces between the furthest 0 and 1 in the grid. Adjacent does not include diagonals.
