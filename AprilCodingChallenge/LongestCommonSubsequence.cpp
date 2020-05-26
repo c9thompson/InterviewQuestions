@@ -39,11 +39,9 @@ public:
         vector<vector<int>> prev(text1.size() + 1, vector<int>(text2.size() + 1, 0));
 
         int v1, v2;
-        for(int i = 0; i <= text1.size(); ++i){
-            for(int j = 0; j <= text2.size(); ++j){
-                if(i == 0 || j == 0){
-                    prev[i][j] = 0;
-                }else if(text1[i - 1] == text2[j - 1]){
+        for(int i = 1; i <= text1.size(); ++i){
+            for(int j = 1; j <= text2.size(); ++j){
+                if(text1[i - 1] == text2[j - 1]){
                     prev[i][j] = prev[i - 1][j - 1] + 1;
                 }else{
                     v1 = prev[i - 1][j];
