@@ -46,11 +46,11 @@ public:
             int nextSpace = logs[i].find(" ");
             
             if(logs[i][nextSpace + 1] > 57 /*ascii char value for 9*/){
-                vector<string> tmp;
                 string id = logs[i].substr(0, nextSpace);
                 string end = logs[i].substr(nextSpace, logs[i].size());
                     
-                /* ---- if log[i] elements also needed to be sorted ---
+                /*// ---- if log[i] elements also needed to be sorted ---
+                vector<string> tmp;
                 int prevPose = nextSpace + 1;
                 nextSpace = end.find(" ", prevPose);
                 

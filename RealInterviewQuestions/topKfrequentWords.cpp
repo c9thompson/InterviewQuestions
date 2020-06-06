@@ -14,7 +14,7 @@ Input: ["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], 
 Output: ["the", "is", "sunny", "day"]
 Explanation: "the", "is", "sunny" and "day" are the four most frequent words,
     with the number of occurrence being 4, 3, 2 and 1 respectively.
-    
+
 Note:
 You may assume k is always valid, 1 ≤ k ≤ number of unique elements.
 Input words contain only lowercase letters.
@@ -25,58 +25,34 @@ Try to solve it in O(n log k) time and O(n) extra space.
 class Solution {
 public: 
     
-    int min(int a, int b) { return a < b ? a : b; }
-    
     static bool sortSec(pair<string, int> a, pair<string, int> b){
+        if(a.second == b.second)
+            return a.first < b.first;
+        
         return a.second > b.second;
-    }
-    
-    static bool sortString(string a, string b){
-        return a < b;
     }
     
     vector<string> topKFrequent(vector<string>& words, int k) {
         map<string, int> output;
         map<string, int>::iterator it;
+
+        vector<pair<string, int>> numSort;
         for(int i = 0; i < words.size(); ++i){
             it = output.find(words[i]);
             
-            if(it != output.end()){
-                it->second++;
-            }else{
-                output[words[i]] = 1;
+            if(it != output.end()) numSort[it->second].second++;
+            else{
+                numSort.push_back(pair<string, int>(words[i], 1));
+                output[words[i]] = numSort.size() - 1;
             }
         }
-        
-        it = output.begin();
-        vector<pair<string, int>> numSort(output.size());
-        for(int i = 0; it != output.end(); ++it, ++i)
-            numSort[i] = *it;
         
         sort(numSort.begin(), numSort.end(), sortSec);
         
-        int i = 1;
-        int currNum = numSort.front().second;
-        vector<string> tmp(1, numSort.front().first);
-        vector<string> out;
+        vector<string> out(k);
+        for(int i = 0; i < k; ++i)
+            out[i] = numSort[i].first;
         
-        while(out.size() < k && i < numSort.size()){
-            if(numSort[i].second == currNum){
-                tmp.push_back(numSort[i].first);
-            }else{
-                sort(tmp.begin(), tmp.end(), sortString);
-                out.insert(out.end(), tmp.begin(), tmp.end());
-                
-                tmp = vector<string>(1, numSort[i].first);
-                currNum = numSort[i].second;
-            }
-        
-            i++;
-        }
-        
-        sort(tmp.begin(), tmp.end(), sortString);
-        out.insert(out.end(), tmp.begin(), tmp.end());
-        
-        return vector<string>(out.begin(), out.begin() + min(k, out.size()));
+        return out;
     }
 };
