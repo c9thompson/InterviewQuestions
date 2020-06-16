@@ -82,6 +82,7 @@ public:
                 if(priority.empty()) priority.push_back(next[i]);
                 else{
                     list<int>::iterator it = priority.begin();
+                    //implement this as max heap next time
                     for(; it != priority.end(); it++){
                         if(newDist <= nodes[*it].dist_){
                             priority.insert(it, next[i]);
